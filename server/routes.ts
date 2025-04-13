@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertSavedProfileSchema, insertPaymentSchema } from "@shared/schema";
 import { z } from "zod";
+import { createOrder, verifyPayment } from "./controllers/payments";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes
@@ -61,7 +62,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Process payment
+  // Process payment (legacy route)
   app.post("/api/payments", async (req, res) => {
     try {
       const data = insertPaymentSchema.parse(req.body);
@@ -74,6 +75,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ message: "Failed to process payment" });
     }
   });
+  
+  // Razorpay - Create new order
+  app.post("/api/payments/create-order", createOrder);
+  
+  // Razorpay - Verify payment
+  app.post("/api/payments/verify", verifyPayment);
 
   // Get analytics data
   app.get("/api/analytics", async (req, res) => {
