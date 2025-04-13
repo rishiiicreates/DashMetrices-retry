@@ -45,20 +45,39 @@ export default function LoginPage() {
 
   const onSubmit = async (data: LoginFormValues) => {
     setIsLoading(true);
+    console.log("Login form submitted with email:", data.email);
+    
     try {
+      console.log("Calling login function");
       await login(data.email, data.password);
       
+      console.log("Login successful, showing toast");
       toast({
         title: "Login successful",
         description: "Welcome back to DashMetrics!",
       });
       
+      console.log("Navigating to:", redirectUrl);
       navigate(redirectUrl);
     } catch (error: any) {
       console.error("Login error:", error);
+      console.error("Error code:", error.code);
+      console.error("Error message:", error.message);
+      
+      // Show more specific error message based on Firebase error code
+      let errorMessage = "There was an error logging in. Please try again.";
+      
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+        errorMessage = "Invalid email or password. Please try again.";
+      } else if (error.code === 'auth/too-many-requests') {
+        errorMessage = "Too many failed login attempts. Please try again later.";
+      } else if (error.code === 'auth/network-request-failed') {
+        errorMessage = "Network error. Please check your internet connection.";
+      }
+      
       toast({
         title: "Login failed",
-        description: error.message || "There was an error logging in. Please try again.",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {

@@ -27,16 +27,40 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
 // Authentication functions
-export const signInWithEmail = (email: string, password: string) => {
-  return signInWithEmailAndPassword(auth, email, password);
+export const signInWithEmail = async (email: string, password: string) => {
+  try {
+    console.log("Attempting to sign in with email:", email);
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    console.log("Email sign-in successful:", result.user.uid);
+    return result;
+  } catch (error) {
+    console.error("Firebase email sign-in error:", error);
+    throw error;
+  }
 };
 
-export const signUpWithEmail = (email: string, password: string) => {
-  return createUserWithEmailAndPassword(auth, email, password);
+export const signUpWithEmail = async (email: string, password: string) => {
+  try {
+    console.log("Attempting to sign up with email:", email);
+    const result = await createUserWithEmailAndPassword(auth, email, password);
+    console.log("Email sign-up successful:", result.user.uid);
+    return result;
+  } catch (error) {
+    console.error("Firebase email sign-up error:", error);
+    throw error;
+  }
 };
 
-export const signInWithGoogle = () => {
-  return signInWithPopup(auth, googleProvider);
+export const signInWithGoogle = async () => {
+  try {
+    console.log("Attempting to sign in with Google");
+    const result = await signInWithPopup(auth, googleProvider);
+    console.log("Google sign-in successful:", result.user.uid);
+    return result;
+  } catch (error) {
+    console.error("Firebase Google sign-in error:", error);
+    throw error;
+  }
 };
 
 export const logOut = () => {
