@@ -13,11 +13,11 @@ import {
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "demo-api-key",
-  authDomain: `${import.meta.env.VITE_FIREBASE_PROJECT_ID || "demo-project"}.firebaseapp.com`,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "demo-project",
-  storageBucket: `${import.meta.env.VITE_FIREBASE_PROJECT_ID || "demo-project"}.appspot.com`,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || "demo-app-id",
+  apiKey: "AIzaSyDfEYU1Wmv10XOsGF0zGDAIK8omnt4bLb0",
+  authDomain: "dashmetrics-31044.firebaseapp.com",
+  projectId: "dashmetrics-31044",
+  storageBucket: "dashmetrics-31044.appspot.com",
+  appId: "1:918725296076:web:f90150240f392d4447e769",
 };
 
 // Initialize Firebase

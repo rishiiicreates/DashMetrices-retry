@@ -16,8 +16,8 @@ declare global {
 
 // Initialize Razorpay with API keys
 const razorpay = new Razorpay({
-  key_id: process.env.VITE_RAZORPAY_KEY_ID || "",
-  key_secret: process.env.RAZORPAY_KEY_SECRET || "",
+  key_id: "rzp_test_Q3TG6bS8HRFFhq",
+  key_secret: "8acTZk6dtyHLDCV1G2yT4M5x",
 });
 
 // Define subscription plans with prices
@@ -101,7 +101,7 @@ export const verifyPayment = async (req: Request, res: Response) => {
 
     // Verify payment signature
     const generatedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || "")
+      .createHmac("sha256", "8acTZk6dtyHLDCV1G2yT4M5x")
       .update(`${razorpay_order_id}|${razorpay_payment_id}`)
       .digest("hex");
 

@@ -35,7 +35,7 @@ export interface RazorpayResponse {
  * @param options - Payment options
  */
 export const initializeRazorpayPayment = (options: PaymentOptions): void => {
-  const key = import.meta.env.VITE_RAZORPAY_KEY_ID;
+  const key = "rzp_test_Q3TG6bS8HRFFhq";
   
   if (!key) {
     console.error('Razorpay Key ID is not defined');
